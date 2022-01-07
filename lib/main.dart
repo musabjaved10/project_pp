@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_pp/screens/overview_screen/overview_screen.dart';
 import 'package:project_pp/screens/registration/register_one.dart';
 import 'package:flutter/services.dart';
 import 'package:project_pp/screens/registration/register_two.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
       ),
       home:  RegisterOne(),
       routes: {
-        RegisterTwo.routeName : (context) => RegisterTwo()
+        RegisterTwo.routeName : (context) => RegisterTwo(),
+        OverView.routeName : (context) => OverView(),
       },
     );
   }

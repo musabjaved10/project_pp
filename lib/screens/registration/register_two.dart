@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_pp/components/rounded_button.dart';
 import 'package:project_pp/screens/models/constants.dart';
+import 'package:project_pp/screens/overview_screen/overview_screen.dart';
 import 'package:project_pp/screens/registration/register_one.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -27,7 +28,7 @@ class RegisterTwo extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: size.height * 0.07,
+                  height: size.width * 0.15,
                 ),
                 CircleAvatar(
                   radius: 55.0,
@@ -35,7 +36,7 @@ class RegisterTwo extends StatelessWidget {
                   backgroundColor: Color(0xFFf5f7fa),
                 ),
                 SizedBox(
-                  height: size.height * 0.05,
+                  height: size.width * 0.15,
                 ),
                 //Form input fields
 
@@ -120,14 +121,14 @@ class RegisterTwo extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: size.width * 0.05,
+                  height: size.width * 0.1,
                 ),
                 Container(
                     margin: EdgeInsets.only(bottom: 0),
                     child: RoundedButton(
                       text: 'Submit',
                       press: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pushNamed(OverView.routeName);
                       },
                     )),
 

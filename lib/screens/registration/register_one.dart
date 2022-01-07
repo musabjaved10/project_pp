@@ -123,7 +123,7 @@ class RegisterOne extends StatelessWidget {
                   }).toList(),
                 ),
               ),
-              SizedBox(height: size.height* 0.07,),
+              SizedBox(height: size.width * 0.1,),
               Container(
                   margin: EdgeInsets.only(bottom: 0),
                   child: RoundedButton(text: 'Proceed', press: (){
