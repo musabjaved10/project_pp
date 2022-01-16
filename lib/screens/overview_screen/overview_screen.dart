@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_pp/screens/models/constants.dart';
+import 'package:project_pp/screens/tracking/map_screen.dart';
 
 class OverView extends StatelessWidget {
   const OverView({Key? key}) : super(key: key);
@@ -31,20 +32,30 @@ class OverView extends StatelessWidget {
                 SizedBox(
                   height: size.width * 0.15,
                 ),
-
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   width: size.width * 0.5,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8)
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)),
                   child: ClipRRect(
                     child: Row(
                       children: [
-                        const Expanded(flex: 1,child: Icon(Icons.pin_drop_outlined, color: Colors.red,)),
-                        Expanded(flex: 9,child:TextButton(onPressed: (){}, child: const Text('Start Tracking'),)),
+                        const Expanded(
+                            flex: 1,
+                            child: Icon(
+                              Icons.pin_drop_outlined,
+                              color: Colors.red,
+                            )),
+                        Expanded(
+                            flex: 9,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(MapScreen.routeName);
+                              },
+                              child: const Text('Start Tracking'),
+                            )),
                       ],
                     ),
                   ),
@@ -55,22 +66,26 @@ class OverView extends StatelessWidget {
                   width: size.width * 0.5,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)
-                  ),
+                      borderRadius: BorderRadius.circular(8)),
                   child: ClipRRect(
                     child: Row(
                       children: [
-                        Expanded(flex: 1,child: Icon(Icons.account_balance_wallet_outlined, color: Colors.green,)),
-                        Expanded(flex: 9,child:TextButton(onPressed: (){}, child: const Text('Payments'),)),
+                        Expanded(
+                            flex: 1,
+                            child: Icon(
+                              Icons.account_balance_wallet_outlined,
+                              color: Colors.green,
+                            )),
+                        Expanded(
+                            flex: 9,
+                            child: TextButton(
+                              onPressed: () {},
+                              child: const Text('Payments'),
+                            )),
                       ],
                     ),
                   ),
                 ),
-
-
-
-
-
               ],
             ),
           ),
