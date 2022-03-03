@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "328769959565",
+    "firebase_url": "https://point-pay-a430e-default-rtdb.firebaseio.com",
+    "project_id": "point-pay-a430e",
+    "storage_bucket": "point-pay-a430e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328769959565:android:0ab902548c1006c87ed4c4",
+        "android_client_info": {
+          "package_name": "com.example.driverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328769959565-arn4tle6gjq46d7adu23buc1frtn3235.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzfP7C2W7zpzUtUsdOM7tKTeTpKHeZ8SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328769959565-arn4tle6gjq46d7adu23buc1frtn3235.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328769959565:android:4554fdd7302218f67ed4c4",
+        "android_client_info": {
+          "package_name": "com.example.pointpay.project_pp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328769959565-arn4tle6gjq46d7adu23buc1frtn3235.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzfP7C2W7zpzUtUsdOM7tKTeTpKHeZ8SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328769959565-arn4tle6gjq46d7adu23buc1frtn3235.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_pp/components/rounded_button.dart';
 import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/screens/overview_screen/overview_screen.dart';
@@ -128,7 +129,7 @@ class RegisterTwo extends StatelessWidget {
                     child: RoundedButton(
                       text: 'Submit',
                       press: () {
-                        Navigator.of(context).pushNamed(OverView.routeName);
+                        Get.to(() => OverView());
                       },
                     )),
 

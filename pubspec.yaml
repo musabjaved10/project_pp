@@ -39,6 +39,9 @@ dependencies:
   location: ^4.2.0
   provider: ^6.0.1
   http: ^0.13.4
+  firebase_core: ^1.12.0
+  get: ^4.6.1
+  firebase_database: ^9.0.7
 
 dev_dependencies:
   flutter_test:

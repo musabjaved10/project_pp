@@ -1,47 +1,39 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:typed_data';
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'service.dart';
-import 'package:location/location.dart';
-import 'package:project_pp/providers/map_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:project_pp/controllers/map_controller.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
   static const routeName = '/maps';
-
 
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
+  MapController getxMapController = Get.find<MapController>();
+  DatabaseReference ref = FirebaseDatabase.instance.ref("NED");
   late BitmapDescriptor myIcon;
 
 // make sure to initialize before map loading
-  
-
-  late Set<Marker> markers = new Set();
-  final List<Marker> loadedMarkers = [];
 
   @override
   void initState() {
-    super.initState();
-  }
-  @override
-  void didUpdateWidget(MapScreen oldWidget) {
-
-      setState((){
-       return;
+    if(mounted) {
+      ref.onValue.listen((event) async {
+        final data = event.snapshot.value;
+        await getxMapController.updateMarkers(context, data);
       });
+      super.initState();
+    }
 
-    super.didUpdateWidget(oldWidget);
   }
+
+
+
+
 
   late GoogleMapController mapController;
   final LatLng _center = const LatLng(24.8852602, 67.1774464);
@@ -52,31 +44,34 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Points Tracking'),
-        backgroundColor: Colors.lightBlueAccent,
-      ),
-      body: StreamBuilder(
-          stream: Service().markerStream(context),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if(snapshot.hasData){
-              return GoogleMap(
+        appBar: AppBar(
+          title: const Text('Points Tracking'),
+          backgroundColor: Colors.lightBlueAccent,
+        ),
+        body: GetBuilder<MapController>(
+          init: MapController(),
+          builder: (controller) =>
+          controller.markers.isEmpty
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : GoogleMap(
                 onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(target: _center, zoom: 14.0),
-                markers: snapshot.data,
-              );
-            }
+                initialCameraPosition:
+                    CameraPosition(target: _center, zoom: 14.0),
+                markers: controller.markers,
+              )
+        )
 
-              return Center(child: CircularProgressIndicator(),);
 
-          }
-      )
-      // GoogleMap(
-      //   onMapCreated: _onMapCreated,
-      //   initialCameraPosition: CameraPosition(target: _center, zoom: 14.0),
-      //   markers: markers != null ? markers : Set.of([]),
-      // ),
-    );
+
+        // GoogleMap(
+        //   onMapCreated: _onMapCreated,
+        //   initialCameraPosition: CameraPosition(target: _center, zoom: 14.0),
+        //   markers: markers != null ? markers : Set.of([]),
+        // ),
+        );
   }
 }

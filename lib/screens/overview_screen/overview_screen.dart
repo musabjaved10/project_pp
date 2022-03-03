@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_pp/controllers/map_controller.dart';
 import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/screens/tracking/map_screen.dart';
 
@@ -6,8 +8,10 @@ class OverView extends StatelessWidget {
   const OverView({Key? key}) : super(key: key);
   static const routeName = '/overview';
 
+
   @override
   Widget build(BuildContext context) {
+    final mapController = Get.put(MapController());
     Size size = MediaQuery.of(context).size;
     return Container(
       decoration: const BoxDecoration(
@@ -52,7 +56,7 @@ class OverView extends StatelessWidget {
                             flex: 9,
                             child: TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamed(MapScreen.routeName);
+                                Get.to(()=> const MapScreen());
                               },
                               child: const Text('Start Tracking'),
                             )),

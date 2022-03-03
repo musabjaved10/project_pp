@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:project_pp/components/rounded_button.dart';
 import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/screens/registration/register_two.dart';
@@ -96,6 +97,7 @@ class RegisterOne extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: DropdownButtonFormField<String>(
+                  onChanged: null,
                   decoration: InputDecoration(
                       labelText: 'Select Your University',
                       border: InputBorder.none
@@ -127,7 +129,7 @@ class RegisterOne extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(bottom: 0),
                   child: RoundedButton(text: 'Proceed', press: (){
-                    Navigator.of(context).pushNamed(RegisterTwo.routeName);
+                    Get.to(()=> RegisterTwo());
                   },)
               ),
 
