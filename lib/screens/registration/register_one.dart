@@ -129,7 +129,7 @@ class RegisterOne extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(bottom: 0),
                   child: RoundedButton(text: 'Proceed', press: (){
-                    Get.to(()=> RegisterTwo());
+                    Get.to(()=> RegisterTwo(),transition: Transition.rightToLeftWithFade, duration: Duration(milliseconds: 600) );
                   },)
               ),
 

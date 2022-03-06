@@ -129,7 +129,7 @@ class RegisterTwo extends StatelessWidget {
                     child: RoundedButton(
                       text: 'Submit',
                       press: () {
-                        Get.to(() => OverView());
+                        Get.to(() => OverView(),transition: Transition.rightToLeftWithFade, duration: Duration(milliseconds: 600));
                       },
                     )),
 

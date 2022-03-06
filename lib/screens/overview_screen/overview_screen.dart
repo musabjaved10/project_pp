@@ -56,7 +56,7 @@ class OverView extends StatelessWidget {
                             flex: 9,
                             child: TextButton(
                               onPressed: () {
-                                Get.to(()=> const MapScreen());
+                                Get.to(()=> const MapScreen(),transition: Transition.zoom, duration: Duration(milliseconds: 600));
                               },
                               child: const Text('Start Tracking'),
                             )),
