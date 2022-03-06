@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animarker/flutter_map_marker_animation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -27,6 +28,9 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     _activeListeners();
+
+    getxMapController.getLocation();
+
     super.initState();
   }
 
@@ -43,12 +47,13 @@ class _MapScreenState extends State<MapScreen> {
     super.deactivate();
   }
 
-  late GoogleMapController mapController;
+  // late GoogleMapController mapController;
+  final mapController = Completer<GoogleMapController>();
   final LatLng _center = const LatLng(24.8852602, 67.1774464);
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
+  // void _onMapCreated(GoogleMapController controller) {
+  //   mapController = controller;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -57,31 +62,41 @@ class _MapScreenState extends State<MapScreen> {
           title: const Text('Points Tracking'),
           backgroundColor: Colors.lightBlueAccent,
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     getxMapController.getLocation();
-        //   },
-        //   child: const Icon(Icons.location_on),
-        //   backgroundColor: Colors.lightBlueAccent,
-        // ),
+        floatingActionButton: Obx(() =>getxMapController.locPermission.value == false && getxMapController.locService.value == false ? FloatingActionButton(
+          onPressed: () {
+            getxMapController.getLocation();
+          },
+          child: const Icon(Icons.location_on),
+          backgroundColor: Colors.lightBlueAccent,
+        ): Container()),
         body: GetBuilder<MapController>(
             init: MapController(),
             builder: (controller) => controller.markers.isEmpty
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : GoogleMap(
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: true,
-                    zoomControlsEnabled: false,
-                    onMapCreated: _onMapCreated,
-                    initialCameraPosition: CameraPosition(
-                        target: controller.position == null
-                            ? _center
-                            : LatLng(controller.position.latitude,
-                                controller.position.longitude),
-                        zoom: 14.0),
+                : Animarker(
+                    shouldAnimateCamera: false,
+                    useRotation: false,
+                    mapId:
+                        mapController.future.then<int>((value) => value.mapId),
                     markers: controller.markers,
+                    child: GoogleMap(
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                      zoomControlsEnabled: false,
+                      onMapCreated: (gController) {
+                        mapController.complete(gController);
+                        print("printing getx ${getxMapController.position}");
+                        //Complete the future GoogleMapController
+                      },
+                      initialCameraPosition: CameraPosition(
+                          target: controller.position == null
+                              ? _center
+                              : LatLng(controller.position.latitude,
+                                  controller.position.longitude),
+                          zoom: 14.0),
+                    ),
                   ))
 
         // GoogleMap(

@@ -10,9 +10,13 @@ class MapController extends GetxController{
 
   Set<Marker> markers = {};
   var position ;
+  var locService = false.obs;
+  var locPermission = false.obs;
+
 
 
   getLocation() async{
+    print('get location is called');
     try{
       bool serviceEnabled;
       LocationPermission permission;
@@ -28,6 +32,7 @@ class MapController extends GetxController{
       }
 
       permission = await Geolocator.checkPermission();
+      print("Printing the permission${permission.runtimeType}");
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
@@ -48,6 +53,8 @@ class MapController extends GetxController{
 
       // When we reach here, permissions are granted and we can
       // continue accessing the position of the device.
+      locService.value = true;
+      locPermission.value = true;
       position = await Geolocator.getCurrentPosition();
       print("Printing the position${position}");
       update();
@@ -77,7 +84,6 @@ class MapController extends GetxController{
         ));
       }
       markers=  loadedMarkers.toSet();
-      print('hello');
       update();
 
     }catch(e){
