@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/controllers/map_controller.dart';
 import 'package:project_pp/screens/models/constants.dart';
+import 'package:project_pp/screens/payment/payment_home.dart';
 import 'package:project_pp/screens/tracking/map_screen.dart';
 
 class OverView extends StatelessWidget {
@@ -83,7 +84,9 @@ class OverView extends StatelessWidget {
                         Expanded(
                             flex: 9,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(()=> PaymentHomeScreen());
+                              },
                               child: const Text('Payments'),
                             )),
                       ],
