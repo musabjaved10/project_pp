@@ -11,11 +11,9 @@ class PayView extends StatefulWidget {
 class _PayViewState extends State<PayView> {
   @override
   Widget build(BuildContext context) {
-    print('pay built');
     return Scaffold(
       body: Container(
         width: double.infinity,
-        color: Colors.blue,
         child: Column(
           children: [
             SizedBox(height: Get.height * 0.1,),

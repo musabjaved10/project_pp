@@ -9,7 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class MapController extends GetxController{
 
   Set<Marker> markers = {};
-  var position ;
+  Position? position ;
   var locService = false.obs;
   var locPermission = false.obs;
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ScannerView extends StatefulWidget {
-  const ScannerView({Key? key}) : super(key: key);
+class AccountScreen extends StatefulWidget {
+  const AccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScannerView> createState() => _ScannerViewState();
+  State<AccountScreen> createState() => _AccountScreenState();
 }
 
-class _ScannerViewState extends State<ScannerView> {
+class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class _ScannerViewState extends State<ScannerView> {
             Expanded(
                 child: Column(
                   children: [
-                    Center(child: Text('Scan', style: TextStyle(color: Colors.red),))
+                    Center(child: Text('Account', style: TextStyle(color: Colors.red),))
                   ],
                 )
             )

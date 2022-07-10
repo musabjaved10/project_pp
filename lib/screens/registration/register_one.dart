@@ -1,159 +1,134 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/components/rounded_button.dart';
+import 'package:project_pp/controllers/global_controller.dart';
 import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/screens/registration/register_two.dart';
+import 'package:project_pp/widgets/custom_text_field.dart';
 
-class RegisterOne extends StatelessWidget {
+class RegisterOne extends StatefulWidget {
   const RegisterOne({Key? key}) : super(key: key);
-  final String dropdownValue = 'NEDUET';
   static const routeName = '/register-one';
+
+  @override
+  State<RegisterOne> createState() => _RegisterOneState();
+}
+
+class _RegisterOneState extends State<RegisterOne> {
+  String dropdownValue = 'NEDUET';
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      width: double.infinity,
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [Color(0xFF66a6ff), Color(0xFF89f7fe)],
         ),
       ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: size.height * 0.30,
-                margin: EdgeInsets.only(top: 0),
-                padding:
-                    EdgeInsets.only(left: defaultPadding, right: defaultPadding),
-                decoration: BoxDecoration(
-                    color: Color(0xFFf5f7fa),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(80),
-                        bottomRight: Radius.circular(80))),
-                child: Center(
-                  child: CircleAvatar(
-                    radius: 65.0,
-                    backgroundImage: AssetImage("assets/images/PointPay.png"),
-                    backgroundColor: Color(0xFFf5f7fa),
+      child: GetBuilder<GlobalController>(
+        init: GlobalController(),
+        builder: (globalController) {
+          return Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: Colors.transparent,
+            body: Column(
+              children: <Widget>[
+                Container(
+                  height: size.height * 0.30,
+                  margin: const EdgeInsets.only(top: 0),
+                  padding: const EdgeInsets.only(
+                      left: defaultPadding, right: defaultPadding),
+                  decoration: const BoxDecoration(
+                      color: Color(0xFFf5f7fa),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(80),
+                          bottomRight: Radius.circular(80))),
+                  child: const Center(
+                    child: CircleAvatar(
+                      radius: 65.0,
+                      backgroundImage: AssetImage("assets/images/PointPay.png"),
+                      backgroundColor: Color(0xFFf5f7fa),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: size.height* 0.1,),
-              //Form input fields
-
-
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  // border: Border.all(
-                  //     color: Colors.lightBlueAccent,
-                  //     width: 3.0
-                  // )
+                SizedBox(
+                  height: Get.height * 0.06,
                 ),
-                child: TextField(
-                  style: TextStyle(color: Colors.black54),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: 'Name',
+                //Form input fields
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          label: 'Name',
+                          controller: TextEditingController(),
+                          prefixIcon: Icon(Icons.draw),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          width: size.width * 0.8,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: DropdownButtonFormField<String>(
+                            value: dropdownValue,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                              });
+                            },
+                            decoration: const InputDecoration(
+                                labelText: 'Select Your University',
+                                border: InputBorder.none),
+                            icon: const Icon(Icons.school),
+                            elevation: 10,
+                            borderRadius: BorderRadius.circular(12),
+                            // underline: Container(
+                            //   height: 2,
+                            //   color: Colors.deepPurpleAccent,
+                            // ),
+                            items: <String>['NEDUET', 'Two', 'Free', 'Four']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        CustomTextField(
+                          label: 'Email',
+                          controller: TextEditingController(),
+                          prefixIcon: Icon(Icons.email),
+                        ),
+                        SizedBox(
+                          height: Get.height * 0.1,
+                        ),
+                        RoundedButton(
+                          text: 'Proceed',
+                          press: () {
+                            Get.to(() => const RegisterTwo(),
+                                transition: Transition.rightToLeftWithFade,
+                                duration: const Duration(milliseconds: 600));
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  // border: Border.all(
-                  //     color: Colors.lightBlueAccent,
-                  //     width: 3.0
-                  // )
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.black54),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: 'Email',
-                  ),
-                ),
-              ),
 
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: DropdownButtonFormField<String>(
-                  onChanged: null,
-                  decoration: InputDecoration(
-                      labelText: 'Select Your University',
-                      border: InputBorder.none
-                  ),
 
-                  value: dropdownValue,
-                  icon: const Icon(Icons.school),
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.lightBlueAccent),
-                  // underline: Container(
-                  //   height: 2,
-                  //   color: Colors.deepPurpleAccent,
-                  // ),
-                  // onChanged: (String? newValue) {
-                  //   setState(() {
-                  //     dropdownValue = newValue!;
-                  //   });
-                  // },
-                  items: <String>['NEDUET', 'Two', 'Free', 'Four']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ),
-              SizedBox(height: size.width * 0.1,),
-              Container(
-                  margin: EdgeInsets.only(bottom: 0),
-                  child: RoundedButton(text: 'Proceed', press: (){
-                    Get.to(()=> RegisterTwo(),transition: Transition.rightToLeftWithFade, duration: Duration(milliseconds: 600) );
-                  },)
-              ),
-
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     primary: Colors.white,
-              //     shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(18.0)),
-              //     padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-              //   ),
-              //   onPressed: () {},
-              //   child: GradientText(
-              //     'Proceed',
-              //     style: TextStyle(
-              //       fontSize: 20.0,
-              //     ),
-              //     gradientType: GradientType.radial,
-              //     radius: 2.5,
-              //     colors: [gradientBlueStart, gradientBlueEnd],
-              //   ),
-              // ),
-            ],
-          ),
-        ),
+              ],
+            ),
+          );
+        }
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/controllers/bottom_nav_controller.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 
 class PaymentHomeScreen extends StatefulWidget {
@@ -20,27 +21,38 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
         return Scaffold(
           extendBody: true,
           body: navController.getViewForIndex(navController.currentIndex),
-          bottomNavigationBar: DotNavigationBar(
-            currentIndex: navController.currentIndex,
-            onTap: (index) => navController.updateIndex(index),
-            items: [
-              DotNavigationBarItem(
-                icon: Icon(Icons.home),
-                selectedColor: Colors.purple,
-              ),
+          bottomNavigationBar: Container(
+            margin: const EdgeInsets.only(bottom: 5, right: 2, left: 2),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30.0)
+            ),
+            child: SalomonBottomBar(
+              itemPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+              currentIndex: navController.currentIndex,
+              onTap: (index) => navController.updateIndex(index),
+              items: [
+                SalomonBottomBarItem(
+                  title: const Text('Payments'),
+                  icon: const Icon(Icons.paypal),
+                  selectedColor: Colors.blueAccent,
+                ),
 
-              /// Likes
-              DotNavigationBarItem(
-                icon: Icon(Icons.document_scanner),
-                selectedColor: Colors.blueAccent,
-              ),
+                /// Likes
+                SalomonBottomBarItem(
+                  title: const Text('Scanner'),
+                  icon: const Icon(Icons.document_scanner),
+                  selectedColor: Colors.blueAccent,
+                ),
 
-              DotNavigationBarItem(
-                icon: Icon(Icons.favorite_border),
-                selectedColor: Colors.blueAccent,
-              ),
-            ],
+                SalomonBottomBarItem(
+                  title: const Text('Account'),
+                  icon: const Icon(Icons.person),
+                  selectedColor: Colors.blueAccent,
+                ),
+              ],
 
+            ),
           ),
         );
       }

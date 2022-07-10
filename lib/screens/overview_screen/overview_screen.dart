@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:project_pp/bindings/map_binding.dart';
 import 'package:project_pp/controllers/map_controller.dart';
 import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/screens/payment/payment_home.dart';
@@ -12,7 +13,6 @@ class OverView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mapController = Get.put(MapController());
     Size size = MediaQuery.of(context).size;
     return Container(
       decoration: const BoxDecoration(
@@ -57,7 +57,7 @@ class OverView extends StatelessWidget {
                             flex: 9,
                             child: TextButton(
                               onPressed: () {
-                                Get.to(()=> const MapScreen(),transition: Transition.zoom, duration: Duration(milliseconds: 600));
+                                Get.to(()=> const MapScreen(),transition: Transition.zoom, duration: Duration(milliseconds: 600), binding: MapBinding());
                               },
                               child: const Text('Start Tracking'),
                             )),

@@ -23,13 +23,35 @@ class _MapScreenState extends State<MapScreen> {
   late StreamSubscription _liveStream;
   late Position _position;
 
+  // late GoogleMapController mapController;
+  final mapController = Completer();
+  final LatLng _center = const LatLng(24.8852602, 67.1774464);
+  final CameraPosition _initialCameraPosition = CameraPosition(
+    target: LatLng(24.8852602, 67.1774464),
+    zoom: 12,
+  );
+
 // make sure to initialize before map loading
 
   @override
   void initState() {
     _activeListeners();
-
-    getxMapController.getLocation();
+    () async {
+      await getxMapController.getLocation();
+      print('ok');
+      if (getxMapController.position != null) {
+        print('true');
+        final GoogleMapController _googleMapController =
+            await mapController.future;
+        _googleMapController
+            .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+                target: LatLng(
+          getxMapController.position!.latitude,
+          getxMapController.position!.longitude,
+        ),
+        zoom: 12.0)));
+      }
+    }();
 
     super.initState();
   }
@@ -47,10 +69,6 @@ class _MapScreenState extends State<MapScreen> {
     super.deactivate();
   }
 
-  // late GoogleMapController mapController;
-  final mapController = Completer<GoogleMapController>();
-  final LatLng _center = const LatLng(24.8852602, 67.1774464);
-
   // void _onMapCreated(GoogleMapController controller) {
   //   mapController = controller;
   // }
@@ -59,16 +77,20 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Points Tracking'),
+          title: Text('Live Tracking'),
           backgroundColor: Colors.lightBlueAccent,
         ),
-        floatingActionButton: Obx(() =>getxMapController.locPermission.value == false && getxMapController.locService.value == false ? FloatingActionButton(
-          onPressed: () {
-            getxMapController.getLocation();
-          },
-          child: const Icon(Icons.location_on),
-          backgroundColor: Colors.lightBlueAccent,
-        ): Container()),
+        floatingActionButton: Obx(() =>
+            getxMapController.locPermission.value == false &&
+                    getxMapController.locService.value == false
+                ? FloatingActionButton(
+                    onPressed: () {
+                      getxMapController.getLocation();
+                    },
+                    child: const Icon(Icons.location_on),
+                    backgroundColor: Colors.lightBlueAccent,
+                  )
+                : Container()),
         body: GetBuilder<MapController>(
             init: MapController(),
             builder: (controller) => controller.markers.isEmpty
@@ -82,6 +104,7 @@ class _MapScreenState extends State<MapScreen> {
                         mapController.future.then<int>((value) => value.mapId),
                     markers: controller.markers,
                     child: GoogleMap(
+                      buildingsEnabled: false,
                       myLocationEnabled: true,
                       myLocationButtonEnabled: true,
                       zoomControlsEnabled: false,
@@ -90,12 +113,12 @@ class _MapScreenState extends State<MapScreen> {
                         print("printing getx ${getxMapController.position}");
                         //Complete the future GoogleMapController
                       },
-                      initialCameraPosition: CameraPosition(
-                          target: controller.position == null
-                              ? _center
-                              : LatLng(controller.position.latitude,
-                                  controller.position.longitude),
-                          zoom: 14.0),
+                      initialCameraPosition: getxMapController.position == null
+                          ? _initialCameraPosition
+                          : CameraPosition(
+                              target: LatLng(controller.position!.latitude,
+                                  controller.position!.longitude),
+                              zoom: 14.0),
                     ),
                   ))
 

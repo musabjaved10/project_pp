@@ -11,9 +11,10 @@ class BackToOverView extends StatefulWidget {
 
 class _BackToOverViewState extends State<BackToOverView> {
   @override
-  void iniState(){
+  void initState(){
     super.initState();
-    Get.off(() => OverView());
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => Get.off(() => OverView()));
   }
 
   @override
