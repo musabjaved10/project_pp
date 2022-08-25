@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/controllers/bottom_nav_controller.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 

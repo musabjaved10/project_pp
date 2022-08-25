@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/bindings/map_binding.dart';
+import 'package:project_pp/bindings/payment_binding.dart';
 import 'package:project_pp/controllers/map_controller.dart';
 import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/screens/payment/payment_home.dart';
@@ -85,7 +86,7 @@ class OverView extends StatelessWidget {
                             flex: 9,
                             child: TextButton(
                               onPressed: () {
-                                Get.to(()=> PaymentHomeScreen());
+                                Get.to(()=> PaymentHomeScreen(), binding: PaymentBinding());
                               },
                               child: const Text('Payments'),
                             )),

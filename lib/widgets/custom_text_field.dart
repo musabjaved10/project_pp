@@ -8,11 +8,13 @@ class CustomTextField extends StatefulWidget {
   bool hasIcon;
   final Icon? prefixIcon;
   double margin;
+  bool isPassObscure;
 
    CustomTextField(
       {Key? key,
         required this.label,
         required this.controller,
+        this.isPassObscure = false,
         this.hasIcon = false,
         this.margin = 10.0,
         this.suffixText,
@@ -24,7 +26,6 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool isObscure = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         borderRadius: BorderRadius.circular(8),
       ),
       child:  TextFormField(
+        obscureText: widget.isPassObscure,
         controller: widget.controller,
         style: const TextStyle(color: Colors.black54),
         decoration:  InputDecoration(
@@ -47,10 +49,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ?IconButton(
               onPressed: () {
                 setState(() {
-                  isObscure = !isObscure;
+                  widget.isPassObscure = !widget.isPassObscure;
                 });
               },
-              icon: isObscure
+              icon: widget.isPassObscure
                   ? const Icon(Icons.visibility)
                   : const Icon(Icons.visibility_off))
             : null

@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/components/rounded_button.dart';
 import 'package:project_pp/controllers/global_controller.dart';
-import 'package:project_pp/models/constants.dart';
+import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/widgets/custom_text_field.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+  static const routeName = '/login';
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+
+
 class _LoginScreenState extends State<LoginScreen> {
+
+  @override
+  void initState() {
+      super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
           init: GlobalController(),
           builder: (globalController) {
             return Scaffold(
-              resizeToAvoidBottomInset: true,
               backgroundColor: Colors.transparent,
               body: Column(
                 children: <Widget>[
@@ -64,17 +72,49 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: TextEditingController(),
                             prefixIcon: Icon(Icons.email),
                           ),
+                          CustomTextField(
+                            label: 'Password',
+                            controller: globalController.passController!,
+                            prefixIcon: Icon(Icons.lock_open),
+                            hasIcon: true,
+                            isPassObscure: true,
+                          ),
                           SizedBox(
-                            height: Get.height * 0.1,
+                            height: Get.height * 0.05,
+                          ),
+                          RoundedButton(
+                            text: 'Login',
+                            press: () {
+                              //login
+                            },
                           ),
                           Container(
-                              margin: const EdgeInsets.only(bottom: 0),
-                              child: RoundedButton(
-                                text: 'Proceed',
-                                press: () {
-                                  //login
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            width: Get.width * 0.8,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                                ),
+                                child: GradientText(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontStyle: FontStyle.italic
+                                  ),
+                                  gradientType: GradientType.radial,
+                                  radius: 2.5,
+                                  colors: [gradientBlueStart, gradientBlueEnd],
+                                ),
+                                onPressed: (){
+                                  Get.toNamed('/register-one');
                                 },
-                              )),
+
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

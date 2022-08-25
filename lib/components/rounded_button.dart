@@ -5,9 +5,11 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 class RoundedButton extends StatelessWidget {
   final String text;
   final void Function() press;
+  double borderRadius;
   // final Color color, textColor;
-  const RoundedButton({
+  RoundedButton({
     Key? key,
+    this.borderRadius = 50,
     required this.text,
     required this.press,
     // this.press,
@@ -21,7 +23,7 @@ class RoundedButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10),
       width: size.width * 0.8,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(29),
+        borderRadius: BorderRadius.circular(borderRadius),
         child: newElevatedButton(),
       ),
     );

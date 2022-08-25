@@ -15,7 +15,7 @@ class RegisterOne extends StatefulWidget {
 }
 
 class _RegisterOneState extends State<RegisterOne> {
-  String dropdownValue = 'NEDUET';
+  String _dropdownValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -65,42 +65,43 @@ class _RegisterOneState extends State<RegisterOne> {
                     child: Column(
                       children: [
                         CustomTextField(
-                          label: 'Name',
-                          controller: TextEditingController(),
+                          label: 'First Name',
+                          controller: globalController.firstNameController!,
+                          prefixIcon: Icon(Icons.draw),
+                        ),
+                        CustomTextField(
+                          label: 'Last Name',
+                          controller: globalController.lastNameController!,
                           prefixIcon: Icon(Icons.draw),
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 10),
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           width: size.width * 0.8,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: DropdownButtonFormField<String>(
-                            value: dropdownValue,
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
+                          child: DropdownButtonFormField(
                             decoration: const InputDecoration(
                                 labelText: 'Select Your University',
                                 border: InputBorder.none),
-                            icon: const Icon(Icons.school),
+                            icon: const Icon(Icons.school, size: 35,),
                             elevation: 10,
                             borderRadius: BorderRadius.circular(12),
-                            // underline: Container(
-                            //   height: 2,
-                            //   color: Colors.deepPurpleAccent,
-                            // ),
-                            items: <String>['NEDUET', 'Two', 'Free', 'Four']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
+                            items: globalController.organizations.map((item) {
+                              return  DropdownMenuItem(
+                                value: item['id'].toString(),
+                                child: Text(item['abbr'],),
                               );
                             }).toList(),
+                            onChanged: (newVal) {
+                              print(newVal);
+                              setState(() {
+                                _dropdownValue = newVal.toString();
+                              });
+                            },
+                            value: _dropdownValue.isNotEmpty ? _dropdownValue : null,
                           ),
                         ),
                         CustomTextField(
@@ -109,7 +110,7 @@ class _RegisterOneState extends State<RegisterOne> {
                           prefixIcon: Icon(Icons.email),
                         ),
                         SizedBox(
-                          height: Get.height * 0.1,
+                          height: Get.height * 0.05,
                         ),
                         RoundedButton(
                           text: 'Proceed',

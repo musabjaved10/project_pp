@@ -11,21 +11,17 @@ class PayView extends StatefulWidget {
 class _PayViewState extends State<PayView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          children: [
-            SizedBox(height: Get.height * 0.1,),
-            Expanded(
-              child: Column(
-                children: [
-                  Center(child: Text('Pay', style: TextStyle(color: Colors.red),))
-                ],
-              )
-          )
-          ],
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF66a6ff), Color(0xFF89f7fe)],
         ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
       ),
     );
   }
