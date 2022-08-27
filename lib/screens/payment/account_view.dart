@@ -15,11 +15,12 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   void initState(){
     super.initState();
+    Get.find<GlobalController>().getAccountData();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    Get.find<GlobalController>().getAccountData();
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(

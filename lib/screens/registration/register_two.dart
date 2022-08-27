@@ -186,6 +186,11 @@ class _RegisterTwoState extends State<RegisterTwo> {
                                   'Error', 'Passwords do not match',
                                   icon: const Icon(Icons.key));
                             }
+                            if(globalController.rollNumController!.text.length < 8 || globalController.rollNumController!.text.length > 8){
+                              return showSnackBar(
+                                  'Roll Number', 'Please enter roll number in correct format',
+                                  icon: const Icon(Icons.key));
+                            }
                             if (globalController.cardBack == null ||
                                 globalController.cardFront == null) {
                               return showSnackBar('ID Card',

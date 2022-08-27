@@ -21,7 +21,7 @@ class _PaymentHomeScreenState extends State<PaymentHomeScreen> {
           extendBody: true,
           body: navController.getViewForIndex(navController.currentIndex),
           bottomNavigationBar: Container(
-            margin: const EdgeInsets.only(bottom: 5, right: 2, left: 2),
+            margin: const EdgeInsets.only(bottom: 8, right: 8, left: 8),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30.0)

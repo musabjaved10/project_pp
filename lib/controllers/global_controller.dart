@@ -38,8 +38,8 @@ class GlobalController extends GetxController {
 
   @override
   void onReady() async{
-    super.onReady();
     await Future.delayed(Duration(seconds: 4));
+    super.onReady();
     _user = Rx<User?>(_auth.currentUser);
     if (_auth.currentUser != null) {
        getUserData();
@@ -63,9 +63,7 @@ class GlobalController extends GetxController {
     if(user == null){
       Get.offAll(()=> LoginScreen());
     }else{
-      await Future.delayed(Duration(seconds: 10));
-      await getUserData();
-      await getAccountData();
+      await Future.delayed(Duration(seconds: 5));
       closeCustomDialog();
       Get.offAll(() => OverView());
     }
@@ -153,7 +151,10 @@ class GlobalController extends GetxController {
             'id_card_back_pic', cardBackTmp!.path,
             contentType: MediaType('image', 'jpeg')));
 
-         request.send();
+         request.send().then((response) async{
+           var res = await response.stream.bytesToString();
+           print(jsonDecode(res));
+         });
       } catch (e) {
         closeCustomDialog();
         FirebaseAuth.instance.currentUser!.delete();
@@ -210,7 +211,9 @@ class GlobalController extends GetxController {
     cardBack = File(cardBackTmp!.path);
     update();
   }
+  int count = 4;
   getUserData() async {
+    print(count);
     isLoading.value = true;
     print('getUserData() calleddd');
     print('getUserData() ${_auth.currentUser!.email}');
@@ -223,9 +226,13 @@ class GlobalController extends GetxController {
       final data = jsonDecode(res.body);
       print('res for getUserData() $data');
       if (data['status'] != 200 && data['errors'] != null) {
-        _auth.currentUser!.delete();
-        await signOut();
-        showSnackBar('Error', data['errors'].values.first);
+        if(count != 0 && userData.isEmpty){
+          count -=1 ;
+          await getUserData();
+          return;
+        }
+        return _auth.signOut();
+
       }
       userData = data['success']['data'];
 
@@ -233,6 +240,7 @@ class GlobalController extends GetxController {
       // phoneController.text = userData['phone'] ?? '';
       isLoading.value = false;
       update();
+      getAccountData();
       return;
     } catch (e) {
       print("error in userdata $e");
