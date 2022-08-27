@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:project_pp/components/rounded_button.dart';
 import 'package:project_pp/controllers/global_controller.dart';
 import 'package:project_pp/screens/models/constants.dart';
+import 'package:project_pp/utils/util_functions.dart';
 import 'package:project_pp/widgets/custom_text_field.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -21,6 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
       super.initState();
+      ()async{
+        showCustomDialog('Please wait');
+        await Future.delayed(Duration(seconds: 2));
+        closeCustomDialog();
+      }();
   }
   @override
   Widget build(BuildContext context) {
@@ -69,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           CustomTextField(
                             label: 'Email',
-                            controller: TextEditingController(),
+                            controller: globalController.emailController!,
                             prefixIcon: Icon(Icons.email),
                           ),
                           CustomTextField(
@@ -85,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           RoundedButton(
                             text: 'Login',
                             press: () {
-                              //login
+                              globalController.login(globalController.emailController!.text, globalController.passController!.text);
                             },
                           ),
                           Container(

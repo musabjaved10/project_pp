@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:project_pp/controllers/global_controller.dart';
 import 'package:project_pp/screens/payment/payment_confirmation.dart';
 import 'package:project_pp/utils/util_functions.dart';
 import 'package:http/http.dart' as http;
@@ -12,11 +13,13 @@ import 'package:http/http.dart' as http;
 class QRController extends GetxController {
   var scannedQRCode = '';
   Map voucherData = {};
-
+  String? uid;
   @override
   void onReady(){
     super.onReady();
     voucherData = {};
+    uid = Get.find<GlobalController>().uid;
+    print('printing uid $uid for current user in onReadyQR');
   }
 
   Future<void> scanQR(context) async {
@@ -30,10 +33,10 @@ class QRController extends GetxController {
             title: 'Fee Payment',
             middleText: 'Please confirm to continue payment',
             radius: 8,
-            textCancel: 'Cancel',
             onCancel: () => Get.back(),
-            textConfirm: 'Confirm',
             confirmTextColor: Colors.white,
+            confirm: Text('Confirm', style: TextStyle(color: Colors.blueAccent, fontSize: 18),),
+            cancel: Text('Cancel', style: TextStyle(color: Colors.black45, fontSize: 18),),
             onConfirm: () async {
               closeCustomDialog();
               await Future.delayed(const Duration(seconds: 1));
@@ -54,10 +57,9 @@ class QRController extends GetxController {
   }
 
   Future<void> initiatePayment(context, code) async {
-
     try {
       final url = Uri.parse('${dotenv.env['db_url']}/payment/initiate?code=${code}');
-      final res = await http.get(url, headers: {"api-key": "${dotenv.env['api_key']}", "uid":"4WhTzlx2aHUIoqt28m3jl4evu9L2"});
+      final res = await http.get(url, headers: {"api-key": "${dotenv.env['api_key']}", "uid": uid!});
       final resData = jsonDecode(res.body);
       print('data for voucher initiate payment $resData');
       if (resData['status'] != 200 && resData['errors'] != null) {

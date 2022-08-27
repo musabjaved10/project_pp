@@ -37,7 +37,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: Get.height * 0.1,
+                  height: Get.height * 0.06,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -52,7 +52,8 @@ class _RegisterTwoState extends State<RegisterTwo> {
                         image: DecorationImage(
                             fit: BoxFit.fill,
                             image: globalController.proImg == null
-                                ? const AssetImage("assets/images/pic-upload.png")
+                                ? const AssetImage(
+                                    "assets/images/pic-upload.png")
                                 : FileImage(
                                     globalController.proImg!,
                                   ) as ImageProvider)),
@@ -141,6 +142,12 @@ class _RegisterTwoState extends State<RegisterTwo> {
                     child: Column(
                       children: [
                         CustomTextField(
+                            label: 'Mobile No.',
+                            hintText: "+923331234567",
+                            inputType: TextInputType.phone,
+                            prefixIcon: const Icon(Icons.phone_android),
+                            controller: globalController.phoneController!),
+                        CustomTextField(
                             hasIcon: true,
                             isPassObscure: true,
                             label: 'Password',
@@ -190,9 +197,15 @@ class _RegisterTwoState extends State<RegisterTwo> {
                                   'Upload profile image by tapping the profile icon',
                                   icon: const Icon(Icons.image));
                             }
-                            Get.to(() => const OverView(),
-                                transition: Transition.rightToLeftWithFade,
-                                duration: const Duration(milliseconds: 600));
+                            globalController.signUpWithEmailAndPassword(
+                                globalController.emailController!.text,
+                                globalController.passController!.text,
+                                globalController.confirmPassController!.text,
+                                globalController.firstNameController!.text,
+                                globalController.lastNameController!.text,
+                                globalController.phoneController!.text,
+                                globalController.orgController!.text,
+                                globalController.rollNumController!.text);
                           },
                         ),
                       ],

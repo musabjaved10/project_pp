@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
   double margin;
   bool isPassObscure;
   String? hintText;
+  TextInputType inputType;
 
 
    CustomTextField(
@@ -17,6 +18,7 @@ class CustomTextField extends StatefulWidget {
         required this.label,
         required this.controller,
         this.isPassObscure = false,
+        this.inputType = TextInputType.text,
         this.hasIcon = false,
         this.margin = 10.0,
         this.suffixText,
@@ -41,6 +43,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         borderRadius: BorderRadius.circular(8),
       ),
       child:  TextFormField(
+        keyboardType: widget.inputType,
         obscureText: widget.isPassObscure,
         controller: widget.controller,
         style: const TextStyle(color: Colors.black54),
