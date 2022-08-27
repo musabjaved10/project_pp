@@ -14,18 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final _globalController = Get.find<GlobalController>();
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 4), () {
-      if(_globalController.user == null){
-        Get.offAll(() => const LoginScreen());
-      }else{
-        Get.offAll(const OverView());
-      }
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/components/rounded_button.dart';
+import 'package:project_pp/controllers/global_controller.dart';
+import 'package:project_pp/controllers/qr_controller.dart';
 import 'package:project_pp/screens/models/constants.dart';
 import 'package:project_pp/screens/payment/card_payment.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -32,6 +34,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
 
   @override
   Widget build(BuildContext context) {
+    print(voucherData['voucher_payment']['signature']);
     return Container(
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -77,11 +80,14 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                           Column(
                             children: [
                               CircleAvatar(
+                                backgroundColor: Colors.transparent,
                                 radius: 30.0,
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50.0),
+                                  borderRadius: BorderRadius.circular(100.0),
                                   child: Image.network(
-                                      "${dotenv.env['media_url']}/${voucherData["voucher_payment"]["from"]["avatar"]}"),
+                                    "${dotenv.env['media_url']}/${voucherData["voucher_payment"]["from"]["avatar"]}",
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -178,6 +184,24 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                     "${months[voucherData['voucher']['month']]}, ${voucherData['voucher']['year']}"),
                               ],
                             ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  ' Your current balance',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "${Get.find<GlobalController>().userAccountData['balance']}/-",
+                                  style: TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       )
@@ -187,7 +211,9 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                 const SizedBox(
                   height: 50,
                 ),
-                RoundedButton(text: 'Pay now', press: (){}),
+                RoundedButton(text: 'Pay now', press: () {
+                  Get.find<QRController>().verifyPayment(context, voucherData['voucher_payment']['signature']);
+                }),
                 // GestureDetector(
                 //   onTap: () => Get.to(() => const CardPaymentScreen(),
                 //       transition: Transition.zoom),

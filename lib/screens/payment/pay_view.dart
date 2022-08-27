@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:project_pp/controllers/qr_controller.dart';
 
 class PayView extends StatefulWidget {
   const PayView({Key? key}) : super(key: key);
@@ -9,6 +11,18 @@ class PayView extends StatefulWidget {
 }
 
 class _PayViewState extends State<PayView> {
+
+  bool isLoading = true;
+  final qrController = Get.find<QRController>();
+
+  @override
+  void initState(){
+    super.initState();
+    ()async{
+
+    }();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,6 +36,12 @@ class _PayViewState extends State<PayView> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        body: isLoading ? Center(
+          child: SpinKitPulse(
+            color: Colors.white,
+            size: 65.0,
+          ),
+        ),
       ),
     );
   }

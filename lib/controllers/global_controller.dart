@@ -37,8 +37,9 @@ class GlobalController extends GetxController {
       lastNameController;
 
   @override
-  void onReady() {
+  void onReady() async{
     super.onReady();
+    await Future.delayed(Duration(seconds: 4));
     _user = Rx<User?>(_auth.currentUser);
     if (_auth.currentUser != null) {
        getUserData();
@@ -62,7 +63,7 @@ class GlobalController extends GetxController {
     if(user == null){
       Get.offAll(()=> LoginScreen());
     }else{
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 10));
       await getUserData();
       await getAccountData();
       closeCustomDialog();
@@ -152,10 +153,7 @@ class GlobalController extends GetxController {
             'id_card_back_pic', cardBackTmp!.path,
             contentType: MediaType('image', 'jpeg')));
 
-         request.send().then((response) async{
-          var res = await response.stream.bytesToString();
-          print(res);
-        });
+         request.send();
       } catch (e) {
         closeCustomDialog();
         FirebaseAuth.instance.currentUser!.delete();

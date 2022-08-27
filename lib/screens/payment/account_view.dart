@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/controllers/global_controller.dart';
+import 'package:project_pp/screens/payment/topup_screen.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -91,11 +92,13 @@ class _AccountScreenState extends State<AccountScreen> {
                                 borderRadius: BorderRadius.circular(4)
                               ),
                               child: ListTile(
-                                onTap: (){},
+                                onTap: (){
+                                  Get.to(() => TopUpScreen());
+                                },
                                 dense: true,
                                 leading: const Icon(Icons.account_balance_wallet_rounded, color: Colors.black,),
                                 trailing: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 18,),
-                                title: const Text('Topup wallet', style: TextStyle(fontSize: 14),),
+                                title: const Text('Top-up wallet', style: TextStyle(fontSize: 14),),
                                 minLeadingWidth: 0,
                               ),
                             ),
