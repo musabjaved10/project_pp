@@ -32,10 +32,9 @@ class _ScannerViewState extends State<ScannerView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: Get.width * 0.8,
-                    height: Get.height * 0.25,
-                    child: Image.asset('assets/giphy.gif', fit: BoxFit.fitWidth,),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset('assets/giphy.gif', fit: BoxFit.fill, height: Get.height * 0.3, width:Get.width * 0.9 ,),
                   ),
                   SizedBox(height: 50,),
                   Container(

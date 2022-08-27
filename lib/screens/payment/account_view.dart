@@ -67,6 +67,61 @@ class _AccountScreenState extends State<AccountScreen> {
                       )
                     ],
                   ),
+                ),
+                SizedBox(height: 18),
+                Expanded(
+                  child: SizedBox(
+                    width: Get.width * 0.95,
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4)
+                          ),
+                          child: ListTile(
+                            onTap: (){},
+                            dense: true,
+                            leading: Icon(Icons.account_balance_wallet_rounded, color: Colors.black,),
+                            trailing: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 18,),
+                            title: Text('Topup wallet', style: TextStyle(fontSize: 14),),
+                            minLeadingWidth: 0,
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4)
+                          ),
+                          child: ListTile(
+                            onTap: (){},
+                            dense: true,
+                            leading: Icon(Icons.person, color: Colors.black,),
+                            trailing: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 18,),
+                            title: Text('View Profile', style: TextStyle(fontSize: 14),),
+                            minLeadingWidth: 0,
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4)
+                          ),
+                          child: ListTile(
+                            onTap: (){},
+                            dense: true,
+                            leading: Icon(Icons.logout, color: Colors.black,),
+                            trailing: Icon(Icons.arrow_forward_ios, color: Colors.black, size: 18,),
+                            title: Text('Logout', style: TextStyle(fontSize: 14),),
+                            minLeadingWidth: 0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 )
               ],
             ),
