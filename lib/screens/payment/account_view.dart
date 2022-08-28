@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/controllers/global_controller.dart';
+import 'package:project_pp/screens/payment/profile_screen.dart';
 import 'package:project_pp/screens/payment/topup_screen.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -110,7 +111,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 borderRadius: BorderRadius.circular(4)
                               ),
                               child: ListTile(
-                                onTap: (){},
+                                onTap: ()=> Get.to(() => ProfileScreen()),
                                 dense: true,
                                 leading: const Icon(Icons.person, color: Colors.black,),
                                 trailing: const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 18,),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/controllers/qr_controller.dart';
 
@@ -40,14 +41,14 @@ class _PayViewState extends State<PayView> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: isLoading
-            ? Center(
+            ? const Center(
                 child: SpinKitPulse(
                   color: Colors.white,
                   size: 65.0,
                 ),
               )
             : qrController.paymentHistory.isEmpty
-                ? Center(
+                ? const Center(
                     child: Text('You don\'t have any trnsaction history'),
                   )
                 : SizedBox(
@@ -66,23 +67,23 @@ class _PayViewState extends State<PayView> {
                             width: Get.width * 0.9,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Expanded(
                           child: ListView.builder(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              padding: const EdgeInsets.symmetric(horizontal: 12),
                               itemCount: qrController.paymentHistory.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                    margin: EdgeInsets.only(bottom: 5),
+                                    margin: const EdgeInsets.only(bottom: 5),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(4)),
                                     child: qrController.paymentHistory[index]
                                             ['is_debit']
                                         ? ListTile(
-                                            title: Text(
+                                            title: const Text(
                                               'Debit Transaction',
                                               style: TextStyle(
                                                   fontSize: 14,
@@ -97,23 +98,23 @@ class _PayViewState extends State<PayView> {
                                                 RichText(
                                                   text: TextSpan(
                                                       text: 'Source: ',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.grey),
                                                       children: [
                                                         TextSpan(
                                                             text:
                                                                 '${qrController.paymentHistory[index]['source']}',
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontStyle:
                                                                     FontStyle
                                                                         .italic))
                                                       ]),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 4,
                                                 ),
                                                 RichText(
-                                                  text: TextSpan(
+                                                  text: const TextSpan(
                                                       text: 'Time: ',
                                                       style: TextStyle(
                                                           color: Colors.grey),
@@ -133,7 +134,7 @@ class _PayViewState extends State<PayView> {
                                             leading: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
-                                              children: [
+                                              children: const [
                                                 Icon(
                                                   Icons.arrow_circle_down,
                                                   color: Colors.red,
@@ -148,24 +149,26 @@ class _PayViewState extends State<PayView> {
                                               children: [
                                                 Text(
                                                   '${qrController.paymentHistory[index]['amount']}/-',
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.red,
                                                       fontSize: 16),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 8,
                                                 ),
                                                 InkWell(
-                                                  onTap: () {
+                                                  onTap: () async{
                                                     if (qrController.paymentHistory[
                                                                 index][
                                                             'fee_submission'] ==
                                                         null) {
                                                       return;
                                                     }
+                                                    await FlutterWindowManager.addFlags(
+                                                        FlutterWindowManager.FLAG_SECURE);
                                                     Get.bottomSheet(
                                                       Container(
-                                                          decoration: BoxDecoration(
+                                                          decoration: const BoxDecoration(
                                                               color: Colors.white,
                                                               borderRadius: BorderRadius.only(
                                                                   topLeft: Radius
@@ -182,7 +185,7 @@ class _PayViewState extends State<PayView> {
                                                           )),
                                                     );
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     'View Point Card >',
                                                     style: TextStyle(
                                                         color: Colors.green,
@@ -195,7 +198,7 @@ class _PayViewState extends State<PayView> {
                                             ),
                                           )
                                         : ListTile(
-                                            title: Text(
+                                            title: const Text(
                                               'Credit Transaction',
                                               style: TextStyle(
                                                   fontSize: 14,
@@ -210,23 +213,23 @@ class _PayViewState extends State<PayView> {
                                                 RichText(
                                                   text: TextSpan(
                                                       text: 'Source: ',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.grey),
                                                       children: [
                                                         TextSpan(
                                                             text:
                                                                 '${qrController.paymentHistory[index]['source']}',
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontStyle:
                                                                     FontStyle
                                                                         .italic))
                                                       ]),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 4,
                                                 ),
                                                 RichText(
-                                                  text: TextSpan(
+                                                  text: const TextSpan(
                                                       text: 'Time: ',
                                                       style: TextStyle(
                                                           color: Colors.grey),
@@ -246,7 +249,7 @@ class _PayViewState extends State<PayView> {
                                             leading: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
-                                              children: [
+                                              children: const [
                                                 Icon(
                                                   Icons.arrow_circle_up,
                                                   color: Colors.green,
@@ -259,7 +262,7 @@ class _PayViewState extends State<PayView> {
                                               children: [
                                                 Text(
                                                   '${qrController.paymentHistory[index]['amount']}/-',
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.green,
                                                       fontSize: 16),
                                                 ),

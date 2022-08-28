@@ -64,6 +64,7 @@ class QRController extends GetxController {
       }
     } catch (e) {
       closeCustomDialog();
+      print(e);
       Get.snackbar('Error', 'Something went wrong',
           snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.white);
     }
