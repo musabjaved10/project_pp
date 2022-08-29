@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -69,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: ClipRRect(
                                 child: Image.network(
                                     '${dotenv.env['media_url']}${controller.userData['student']['profile_picture']}'),
-                                borderRadius: BorderRadius.circular(50.0),
+                                borderRadius: BorderRadius.circular(100.0),
                               ),
                             ),
                             Column(
@@ -80,7 +81,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       color: Colors.white ),
-                                  child: Image.network('${dotenv.env['media_url']}${controller.userData['student']['id_card_front_pic']}', fit: BoxFit.fill,),
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    width: 60,
+                                    imageUrl: '${dotenv.env['media_url']}${controller.userData['student']['id_card_front_pic']}',
+                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator(color: Colors.blueAccent,)),
+                                    errorWidget: (context, url, error) => SizedBox(child: Image.asset('assets/id-card-front.png')),
+                                  )
+                                  // Image.network('${dotenv.env['media_url']}${controller.userData['student']['id_card_front_pic']}', fit: BoxFit.fill,),
                                 ),
                                 SizedBox(height: 5,),
                                 Container(
@@ -89,7 +97,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       color: Colors.white ),
-                                  child: Image.network('${dotenv.env['media_url']}${controller.userData['student']['id_card_back_pic']}', fit: BoxFit.fill,),
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    width: 60,
+                                    imageUrl: '${dotenv.env['media_url']}${controller.userData['student']['id_card_back_pic']}',
+                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator(color: Colors.blueAccent,)),
+                                    errorWidget: (context, url, error) => SizedBox(child: Image.asset('assets/id-card-back.jpg')),
+                                  )
+
+                                  // Image.network('${dotenv.env['media_url']}${controller.userData['student']['id_card_back_pic']}', fit: BoxFit.fill,),
                                 )
                               ],
                             )
@@ -153,17 +169,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                  Container(
-                    width: Get.width * 0.4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.white,
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Update Profile'),
-                    ),
-                  ),
+                  // Container(
+                  //   width: Get.width * 0.4,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //     color: Colors.white,
+                  //   ),
+                  //   child: TextButton(
+                  //     onPressed: () {},
+                  //     child: Text('Update Profile'),
+                  //   ),
+                  // ),
                   SizedBox(height: 10,)
                 ],
               ),

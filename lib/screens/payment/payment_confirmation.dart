@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -84,10 +85,14 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                 radius: 30.0,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100.0),
-                                  child: Image.network(
-                                    "${dotenv.env['media_url']}/${voucherData["voucher_payment"]["from"]["avatar"]}",
+                                  child: CachedNetworkImage(
                                     fit: BoxFit.fill,
-                                  ),
+                                    imageUrl: '${dotenv.env['media_url']}/${voucherData["voucher_payment"]["from"]["avatar"]}',
+                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator(color: Colors.blueAccent,)),
+                                    errorWidget: (context, url, error) => SizedBox(child: Image.asset('assets/images.profile.png')),
+                                  )
+
+
                                 ),
                               ),
                               const SizedBox(
@@ -102,11 +107,7 @@ class _PaymentConfirmationState extends State<PaymentConfirmation> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'CIS Department',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    'CS-18041',
+                                    '${Get.find<GlobalController>().userData['student']['roll_no']}',
                                     style: TextStyle(fontSize: 12),
                                   )
                                 ],

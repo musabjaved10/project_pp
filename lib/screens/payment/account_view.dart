@@ -48,14 +48,17 @@ class _AccountScreenState extends State<AccountScreen> {
                       width: Get.width * 0.95,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          gradient: const LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          Colors.blue,
-                          Colors.lightGreen,
-                        ],
-                      )),
+                          color: Color(0xff023f7e)
+
+                      //     gradient: const LinearGradient(
+                      //   begin: Alignment.topRight,
+                      //   end: Alignment.bottomLeft,
+                      //   colors: [
+                      //     Colors.blue,
+                      //     Colors.lightGreen,
+                      //   ],
+                      // )
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:project_pp/bindings/global_bindings.dart';
 import 'package:project_pp/controllers/map_controller.dart';
@@ -16,6 +17,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp();
+  Stripe.publishableKey = 'pk_test_51JHZOEFpW43r1t6T2Nn3sNH0cKrU1JkoEceiMlVppVVuwk48gcJL1e985rFxZJNm2O0jIqkTyE92i2RqCTNGki2e00pwYqeRkI';
   runApp(const MyApp());
 }
 

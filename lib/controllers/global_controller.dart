@@ -211,7 +211,7 @@ class GlobalController extends GetxController {
     cardBack = File(cardBackTmp!.path);
     update();
   }
-  int count = 4;
+  int count = 5;
   getUserData() async {
     print(count);
     isLoading.value = true;

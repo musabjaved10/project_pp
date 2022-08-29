@@ -72,7 +72,9 @@ class _PayViewState extends State<PayView> {
                         ),
                         Expanded(
                           child: ListView.builder(
-                              padding: const EdgeInsets.symmetric(horizontal: 12),
+                            physics: BouncingScrollPhysics(),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
                               itemCount: qrController.paymentHistory.length,
                               itemBuilder: (context, index) {
                                 return Container(
@@ -148,7 +150,7 @@ class _PayViewState extends State<PayView> {
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                  '${qrController.paymentHistory[index]['amount']}/-',
+                                                  '-${qrController.paymentHistory[index]['amount']}/-',
                                                   style: const TextStyle(
                                                       color: Colors.red,
                                                       fontSize: 16),
@@ -157,19 +159,22 @@ class _PayViewState extends State<PayView> {
                                                   height: 8,
                                                 ),
                                                 InkWell(
-                                                  onTap: () async{
+                                                  onTap: () async {
                                                     if (qrController.paymentHistory[
                                                                 index][
                                                             'fee_submission'] ==
                                                         null) {
                                                       return;
                                                     }
-                                                    await FlutterWindowManager.addFlags(
-                                                        FlutterWindowManager.FLAG_SECURE);
+                                                    await FlutterWindowManager
+                                                        .addFlags(
+                                                            FlutterWindowManager
+                                                                .FLAG_SECURE);
                                                     Get.bottomSheet(
                                                       Container(
                                                           decoration: const BoxDecoration(
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               borderRadius: BorderRadius.only(
                                                                   topLeft: Radius
                                                                       .circular(
@@ -177,11 +182,32 @@ class _PayViewState extends State<PayView> {
                                                                   topRight: Radius
                                                                       .circular(
                                                                           50))),
-                                                          height: Get.height *
-                                                              0.6,
-                                                          child:
-                                                              Image.network(
-                                                            '${dotenv.env['media_url']}${qrController.paymentHistory[index]['fee_submission']['card']}',
+                                                          height:
+                                                              Get.height * 0.6,
+                                                          child: Stack(
+                                                            children: [
+                                                              Positioned(
+                                                                top: 15,
+                                                                left: 15,
+                                                                right: 15,
+                                                                child: Image
+                                                                    .network(
+                                                                  '${dotenv.env['media_url']}${qrController.paymentHistory[index]['fee_submission']['card']}',
+                                                                ),
+                                                              ),
+                                                              Positioned(
+                                                                top: 60,
+                                                                left:
+                                                                    Get.width *
+                                                                        0.6,
+                                                                child:
+                                                                    SpinKitDoubleBounce(
+                                                                  color: Colors
+                                                                      .lightGreenAccent,
+                                                                  size: 35.0,
+                                                                ),
+                                                              )
+                                                            ],
                                                           )),
                                                     );
                                                   },
@@ -261,7 +287,7 @@ class _PayViewState extends State<PayView> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  '${qrController.paymentHistory[index]['amount']}/-',
+                                                  '+${qrController.paymentHistory[index]['amount']}/-',
                                                   style: const TextStyle(
                                                       color: Colors.green,
                                                       fontSize: 16),
@@ -270,7 +296,8 @@ class _PayViewState extends State<PayView> {
                                             ),
                                           ));
                               }),
-                        )
+                        ),
+                        SizedBox(height: Get.height * 0.08,)
                       ],
                     ),
                   ),

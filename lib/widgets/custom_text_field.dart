@@ -7,6 +7,7 @@ class CustomTextField extends StatefulWidget {
   final String? suffixText;
   bool hasIcon;
   final Icon? prefixIcon;
+  String? prefixText;
   double margin;
   bool isPassObscure;
   String? hintText;
@@ -19,6 +20,7 @@ class CustomTextField extends StatefulWidget {
         required this.controller,
         this.isPassObscure = false,
         this.inputType = TextInputType.text,
+        this.prefixText,
         this.hasIcon = false,
         this.margin = 10.0,
         this.suffixText,
@@ -48,6 +50,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         style: const TextStyle(color: Colors.black54),
         decoration:  InputDecoration(
+          prefixText: widget.prefixText ?? '',
           hintText: widget.hintText ?? '',
           prefixIcon: widget.prefixIcon,
           border: InputBorder.none,
